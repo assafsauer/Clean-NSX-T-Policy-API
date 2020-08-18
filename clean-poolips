@@ -17,6 +17,12 @@ do
 
 curl --silent -k -u admin:$pass -X GET https://$nsx/policy/api/v1/infra/ip-pools/$d/ip-allocations/ |grep "display_name"| awk '{print $3}' | sed 's/"//g' | sed 's/,//g' > ipallocation
 
+####while IFS= read -r line; do   iparray[t]=$line; let "t++"; done < ipallocation
+##for d in "${iplarray[@]}"
+##do
+##curl --silent -k -u admin:$pass -X DELETE https://$nsx/policy/api/v1/infra/ip-pools/$d/ip-allocations/$t
+##done
+
 curl --silent -k -u admin:$pass -X DELETE https://$nsx/policy/api/v1/infra/ip-pools/$d
 
 done
