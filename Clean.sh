@@ -1,3 +1,5 @@
+### vars ###
+
 pass="SAuer1357N@1357N"
 nsx=192.168.1.70
 
@@ -43,8 +45,13 @@ while IFS= read -r line; do   array1[a]=$line; let "a++"; done < display_results
 echo "${array1[0]}"
 
 
-u=0
+
+
+
 ##### create json template ##### 
+
+
+u=0
 for d in "${array[@]}"
 do
 	echo $d
