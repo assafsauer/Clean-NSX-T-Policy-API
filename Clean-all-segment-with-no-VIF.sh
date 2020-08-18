@@ -54,8 +54,8 @@ echo "${array1[0]}"
 
 ##### create json template ##### 
 
-##### create PATCH request to delete the segment and childsegment objjects
-#####
+##### create PATCH request json template to delete the segment and childsegment objjects using marked_for_delete":true
+
 
 u=0
 for d in "${array[@]}"
