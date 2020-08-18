@@ -5,6 +5,8 @@ nsx=192.168.1.70
 
 ### get ID file ###
 
+### colllect all the segments ID and create output file (id_results)
+
 curl --silent -k -u admin:$pass -X GET https://$nsx/policy/api/v1/infra/segments | grep -A 2 seg | grep  ' "path" : ' | awk '{print $3}' | sed 's/"//g' | sed 's/,//g' > seg_id
 
 get="curl --silent -k -u admin:$pass -X GET https://$nsx/policy/api/v1"
@@ -25,6 +27,8 @@ while IFS= read -r line; do   array[i]=$line; let "i++"; done < id_results
 
 
 ### get display name file ###
+
+### colllect all the segments display name and create output file (display_resultsv)
 
 
 curl --silent -k -u admin:$pass -X GET https://$nsx/policy/api/v1/infra/segments | grep -A 2 seg | grep  ' "path" : ' | awk '{print $3}' | sed 's/"//g' | sed 's/,//g' > seg_display
@@ -50,6 +54,8 @@ echo "${array1[0]}"
 
 ##### create json template ##### 
 
+##### create PATCH request to delete the segment and childsegment objjects
+#####
 
 u=0
 for d in "${array[@]}"
@@ -75,4 +81,9 @@ sed -i "s/input_display/${array1[u]}/g" infra-$d.delete
 sed -i "s/input_id/${array[u]}/g" infra-$d.delete 
 let "u++"
 done
+
+##### the while will create script for each segment , copy past the output and execute the DELETION scripts..
+
+chmod 777 *.delete
+ls -ltrh infra-* |  awk '{print $9}' | sed   s/^/.'\/'/
 
